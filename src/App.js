@@ -1,13 +1,18 @@
 import React from 'react';
-import logo from './images/logo_name.png';
+import { Provider } from 'react-redux';
+import Alert from './components/common/Alert';
+
+import store from './store';
 
 const App = () => {
   return (
-    <div>
-      <img src={logo} alt="logo" />
-      CRM KOptical
-    </div>
+    <Provider store={store}>
+      <Alert />
+      <div>
+        CRM KOptical
+      </div>
+    </Provider>
   );
-}
+};
 
 export default App;
