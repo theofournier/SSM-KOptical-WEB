@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl';
 import Alert from './components/common/Alert';
 
 import store from './store';
-import IntlGlobalProvider from './translations/IntlGlobalProvider';
 import englishTranslation from './translations/en.json';
 import frenchTranslation from './translations/fr.json';
 
@@ -35,16 +34,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <IntlProvider
-        locale={this.state.language}
-        messages={this.state.translations}
+        locale={language}
+        messages={translations}
       >
-        <IntlGlobalProvider>
+        <div>
           <Alert />
           <div>
             CRM KOptical
           </div>
-        </IntlGlobalProvider>
-
+        </div>
       </IntlProvider>
     </Provider>
   );
