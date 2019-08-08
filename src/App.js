@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { ThemeProvider } from '@material-ui/styles';
 
 import Alert from './components/common/Alert';
 
 import store from './store';
+import theme from './theme';
 import englishTranslation from './translations/en.json';
 import frenchTranslation from './translations/fr.json';
 
@@ -37,12 +39,14 @@ const App = () => {
         locale={language}
         messages={translations}
       >
-        <div>
-          <Alert />
+        <ThemeProvider theme={theme}>
           <div>
-            CRM KOptical
+            <Alert />
+            <div>
+              CRM KOptical
+            </div>
           </div>
-        </div>
+        </ThemeProvider>
       </IntlProvider>
     </Provider>
   );
