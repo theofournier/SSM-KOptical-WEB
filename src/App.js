@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
 
+import { Typography, CssBaseline } from '@material-ui/core';
 import Alert from './components/common/Alert';
 
 import store from './store';
@@ -40,12 +41,47 @@ const App = () => {
         messages={translations}
       >
         <ThemeProvider theme={theme}>
-          <div>
-            <Alert />
-            <div>
-              CRM KOptical
-            </div>
-          </div>
+          <CssBaseline />
+          <Alert />
+          <Typography variant='h1'>
+            CRM KOptical H1
+            </Typography>
+          <Typography variant='h2'>
+            CRM KOptical H2
+            </Typography>
+          <Typography variant='h3'>
+            CRM KOptical H3
+            </Typography>
+          <Typography variant='h4'>
+            CRM KOptical H4
+            </Typography>
+          <Typography variant='h5'>
+            CRM KOptical H5
+            </Typography>
+          <Typography variant='h6'>
+            CRM KOptical H6
+            </Typography>
+          <Typography variant='subtitle1'>
+            CRM KOptical Subtitle 1
+            </Typography>
+          <Typography variant='subtitle2'>
+            CRM KOptical Subtitle 2
+            </Typography>
+          <Typography variant='body1'>
+            CRM KOptical Body 1
+            </Typography>
+          <Typography variant='body2'>
+            CRM KOptical Body 2
+            </Typography>
+          <Typography variant='button'>
+            CRM KOptical Button
+            </Typography>
+          <Typography variant='caption'>
+            CRM KOptical Caption
+            </Typography>
+          <Typography variant='overline'>
+            CRM KOptical Overline
+          </Typography>
         </ThemeProvider>
       </IntlProvider>
     </Provider>
