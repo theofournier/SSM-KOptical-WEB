@@ -49,7 +49,7 @@ const ListItemDrawer = ({
 };
 
 ListItemDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   selected: PropTypes.string,
   selectedLabel: PropTypes.string,
   to: PropTypes.string,

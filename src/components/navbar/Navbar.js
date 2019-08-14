@@ -10,6 +10,7 @@ import FaceOutlined from '@material-ui/icons/FaceOutlined';
 
 import logo from '../../images/logo.png';
 import DrawerNavbar from './DrawerNavbar';
+import TabsNavbar from './TabsNavbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       borderRight: `0.05em solid ${theme.palette.primary.main}`,
     },
+  },
+  tabsContainer: {
+    display: 'flex',
+    width: '100%',
+    margin: '0 0 0 20px',
   },
 }));
 
@@ -81,6 +87,9 @@ const Navbar = () => {
               <FormattedMessage id='navbar.title' />
             </Typography>
           </Link>
+          <div className={classes.tabsContainer}>
+            <TabsNavbar />
+          </div>
         </Toolbar>
       </AppBar>
       <DrawerNavbar
