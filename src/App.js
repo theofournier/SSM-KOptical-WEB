@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
@@ -10,9 +11,11 @@ import store from './store';
 import theme from './theme';
 import englishTranslation from './translations/en.json';
 import frenchTranslation from './translations/fr.json';
+import Navbar from './components/navbar/Navbar';
 
 const translations = {
   en: englishTranslation,
+  fr: frenchTranslation,
 };
 const userLanguage = (navigator.language || navigator.userLanguage).includes(
   'fr',
@@ -38,50 +41,14 @@ const App = () => {
     <Provider store={store}>
       <IntlProvider
         locale={language}
-        messages={translations}
+        messages={translation}
       >
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Alert />
-          <Typography variant='h1'>
-            CRM KOptical H1
-            </Typography>
-          <Typography variant='h2'>
-            CRM KOptical H2
-            </Typography>
-          <Typography variant='h3'>
-            CRM KOptical H3
-            </Typography>
-          <Typography variant='h4'>
-            CRM KOptical H4
-            </Typography>
-          <Typography variant='h5'>
-            CRM KOptical H5
-            </Typography>
-          <Typography variant='h6'>
-            CRM KOptical H6
-            </Typography>
-          <Typography variant='subtitle1'>
-            CRM KOptical Subtitle 1
-            </Typography>
-          <Typography variant='subtitle2'>
-            CRM KOptical Subtitle 2
-            </Typography>
-          <Typography variant='body1'>
-            CRM KOptical Body 1
-            </Typography>
-          <Typography variant='body2'>
-            CRM KOptical Body 2
-            </Typography>
-          <Typography variant='button'>
-            CRM KOptical Button
-            </Typography>
-          <Typography variant='caption'>
-            CRM KOptical Caption
-            </Typography>
-          <Typography variant='overline'>
-            CRM KOptical Overline
-          </Typography>
+          <BrowserRouter>
+            <CssBaseline />
+            <Alert />
+            <Navbar />
+          </BrowserRouter>
         </ThemeProvider>
       </IntlProvider>
     </Provider>

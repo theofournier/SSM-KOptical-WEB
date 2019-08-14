@@ -1,3 +1,14 @@
 {
-  "navbar.title": "CRM KOptical"
+  "navbar.title": "CRM",
+  "drawer.title": "KOptical CRM",
+  "drawer.customers": "Customers",
+  "drawer.customersMap": "Customers Map",
+  "drawer.calendar": "Calendar",
+  "drawer.dashboard": "Dashboard",
+  "drawer.meetingNote": "Meeting Note",
+  "drawer.adminTitle": "Admin",
+  "drawer.adminPanel": "Admin Panel",
+  "drawer.users": "Users",
+  "drawer.targets": "Targets",
+  "drawer.sendmessage": "Send Message"
 }
