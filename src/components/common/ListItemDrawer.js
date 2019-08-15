@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ListItemDrawer = ({
-  selected, to, label, Icon,
+  selected, to, label, Icon, onClick,
 }) => {
   const classes = useStyles();
 
@@ -27,19 +27,20 @@ const ListItemDrawer = ({
     <ListItem
       button
       to={to}
-      component={Link}
-      selected={selected === to}
+      component={to ? Link : null}
+      selected={selected}
       classes={{ selected: classes.selected }}
+      onClick={onClick}
     >
       <ListItemIcon>
         {React.cloneElement(Icon, {
-          className: selected === to ? classes.iconSelected : '',
+          className: selected ? classes.iconSelected : '',
         })}
       </ListItemIcon>
       <ListItemText
         primary={label}
         classes={
-          selected === to
+          selected
             ? { primary: classes.itemTextSelected }
             : {}
         }
@@ -49,11 +50,10 @@ const ListItemDrawer = ({
 };
 
 ListItemDrawer.propTypes = {
-  classes: PropTypes.object,
-  selected: PropTypes.string,
-  selectedLabel: PropTypes.string,
+  selected: PropTypes.bool,
   to: PropTypes.string,
   label: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default ListItemDrawer;

@@ -6,7 +6,6 @@ import {
   AppBar, Toolbar, Hidden, IconButton, Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import FaceOutlined from '@material-ui/icons/FaceOutlined';
 
 import logo from '../../images/logo.png';
 import DrawerNavbar from './DrawerNavbar';
@@ -17,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
+    padding: '0 20px',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   tabsContainer: {
     display: 'flex',
     width: '100%',
-    margin: '0 0 0 20px',
+    margin: '0 0 0 30px',
   },
 }));
 
