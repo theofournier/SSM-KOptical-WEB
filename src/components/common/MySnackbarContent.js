@@ -10,7 +10,7 @@ import amber from '@material-ui/core/colors/amber';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -19,7 +19,7 @@ const variantIcon = {
   info: InfoIcon,
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   success: {
     backgroundColor: green[600],
   },
@@ -43,11 +43,12 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-});
+}));
 
 const MySnackbarContent = ({
-  classes, className, message, onClose, variant, ...other
+  className, message, onClose, variant, ...other
 }) => {
+  const classes = useStyles();
   const Icon = variantIcon[variant];
 
   return (
@@ -77,11 +78,10 @@ const MySnackbarContent = ({
 };
 
 MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 };
 
-export default withStyles(styles)(MySnackbarContent);
+export default MySnackbarContent;

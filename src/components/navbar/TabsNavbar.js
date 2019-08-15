@@ -1,13 +1,14 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import {
   Hidden, IconButton, Grid,
 } from '@material-ui/core';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import FaceOutlined from '@material-ui/icons/FaceOutlined';
 import MailOutlined from '@material-ui/icons/MailOutlined';
 import ButtonNavbar from './ButtonNavbar';
+import MyDefaultButton from '../common/MyDefaultButton';
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -17,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  loginContainer: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'flex-end',
+  },
 }));
 
 const TabsNavbar = ({
@@ -25,7 +31,13 @@ const TabsNavbar = ({
   const classes = useStyles();
 
   const tabsNoAuth = (
-    null
+    <div className={classes.loginContainer}>
+      <Hidden xsDown>
+        <MyDefaultButton to='/login' component={Link} variant='default2'>
+          <FormattedMessage id='navbar.login' />
+        </MyDefaultButton>
+      </Hidden>
+    </div>
   );
 
   const tabsAuth = (
@@ -69,11 +81,15 @@ const TabsNavbar = ({
       <div>
         <Hidden xsDown>
           <IconButton
-            color='inherit'>
+            color={pathname === '/messages' ? 'primary' : 'inherit'}
+            component={Link}
+            to='/messages'>
             <MailOutlined />
           </IconButton>
           <IconButton
-            color='inherit'>
+            color={pathname === '/account' ? 'primary' : 'inherit'}
+            component={Link}
+            to='/account'>
             <FaceOutlined />
           </IconButton>
         </Hidden>
@@ -83,7 +99,7 @@ const TabsNavbar = ({
 
   return (
     <>
-      {tabsAuth}
+      {tabsNoAuth}
     </>
   );
 };

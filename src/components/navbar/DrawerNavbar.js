@@ -57,12 +57,8 @@ const DrawerNavbar = ({
 }) => {
   const classes = useStyles();
 
-  const drawerItems = (
+  const drawerItemsAuth = (
     <>
-      <Link to='/' className={classes.logoLink} onClick={onClose}>
-        <img src={logo} alt="Logo" height={43} width={100} />
-      </Link>
-      <Divider variant='middle' />
       <Hidden smUp>
         <List>
           <ListItemDrawer
@@ -149,6 +145,19 @@ const DrawerNavbar = ({
     </>
   );
 
+  const drawerItemsNoAuth = (
+    <Hidden smUp>
+      <List>
+        <ListItemDrawer
+          label={formatMessage({ id: 'drawer.login' })}
+          selected={pathname === '/login'}
+          to='/login'
+          Icon={<PowerSettingsNewOutlined />}
+          onClick={onClose} />
+      </List>
+    </Hidden>
+  );
+
   return (
     <Drawer
       classes={{
@@ -158,7 +167,11 @@ const DrawerNavbar = ({
       onClose={onClose}
     >
       <List>
-        {drawerItems}
+        <Link to='/' className={classes.logoLink} onClick={onClose}>
+          <img src={logo} alt="Logo" height={43} width={100} />
+        </Link>
+        <Divider variant='middle' />
+        {drawerItemsNoAuth}
       </List>
     </Drawer>
   );

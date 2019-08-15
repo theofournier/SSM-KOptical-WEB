@@ -5,6 +5,7 @@
   "navbar.dashboard": "Dashboard",
   "navbar.meetingnote": "Meeting Note",
   "navbar.adminpanel": "Admin Panel",
+  "navbar.login": "Log In",
   "drawer.title": "KOptical CRM",
   "drawer.customers": "Customers",
   "drawer.customersMap": "Customers Map",
@@ -18,5 +19,6 @@
   "drawer.sendmessage": "Send Message",
   "drawer.messages": "Messages",
   "drawer.account": "Account",
-  "drawer.logout": "Log Out"
+  "drawer.logout": "Log Out",
+  "drawer.login": "Log In"
 }

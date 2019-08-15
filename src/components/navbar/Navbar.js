@@ -70,7 +70,7 @@ const Navbar = () => {
         className={classes.appBar}
         color='secondary'
         square
-        elevation={0}>
+        elevation={1}>
         <Toolbar className={classes.toolbar}>
           <Hidden mdUp>
             <IconButton
@@ -95,7 +95,7 @@ const Navbar = () => {
       <DrawerNavbar
         open={open}
         onClose={toggleDrawer(false)} />
-    </div>
+    </div >
   );
 };
 
