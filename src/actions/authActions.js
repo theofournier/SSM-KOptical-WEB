@@ -1,0 +1,68 @@
+import axios from 'axios';
+
+import {
+  LOGIN,
+  SET_CURRENT_USER,
+  AUTH_LOADING,
+  AUTH_ERROR,
+} from './types';
+import errorMessageHandler from '../utils/errorMessageHandler';
+import { setAlert } from './alertAction';
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
+export const loginUser = (userData, callbackSuccess) => async(dispatch) => {
+  dispatch(setLoading(true, LOGIN));
+  try {
+    const res = await axios.post(`${apiUrl}/userlogin`, userData);
+    const { user } = res.data;
+    console.log(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    dispatch(setCurrentUser(user));
+
+    if (callbackSuccess) { callbackSuccess(); }
+    dispatch(setError(false, '', '', LOGIN));
+  } catch (err) {
+    const error = errorMessageHandler(err, LOGIN);
+    dispatch(setError(true, error.status, error.message, LOGIN));
+    dispatch(setAlert(err.response.statusText, 'error'));
+  }
+  dispatch(setLoading(false, LOGIN));
+};
+
+// Set logged in user
+export const setCurrentUser = (currentUser) => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: currentUser,
+  };
+};
+
+// Log user out
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('currentUser');
+  dispatch(setCurrentUser({}));
+};
+
+// Set the loading and error for a particular field
+export const setLoading = (loading, field) => {
+  return {
+    type: AUTH_LOADING,
+    payload: {
+      loading,
+      field,
+    },
+  };
+};
+
+export const setError = (hasFailed, status, message, field) => {
+  return {
+    type: AUTH_ERROR,
+    payload: {
+      hasFailed,
+      status,
+      message,
+      field,
+    },
+  };
+};

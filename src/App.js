@@ -9,9 +9,11 @@ import Alert from './components/common/Alert';
 
 import store from './store';
 import theme from './theme';
+import IntlGlobalProvider from './translations/IntlGlobalProvider';
 import englishTranslation from './translations/en.json';
 import frenchTranslation from './translations/fr.json';
 import Navbar from './components/navbar/Navbar';
+import setAuthToken from './utils/setAuthToken';
 
 const translations = {
   en: englishTranslation,
@@ -22,6 +24,9 @@ const userLanguage = (navigator.language || navigator.userLanguage).includes(
 )
   ? 'fr'
   : 'en';
+
+// Set API Key in Axios header
+setAuthToken(process.env.REACT_APP_API_KEY);
 
 const App = () => {
   const [language, setLanguage] = useState(userLanguage);
@@ -43,13 +48,15 @@ const App = () => {
         locale={language}
         messages={translation}
       >
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <CssBaseline />
-            <Alert />
-            <Navbar />
-          </BrowserRouter>
-        </ThemeProvider>
+        <IntlGlobalProvider>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <CssBaseline />
+              <Alert />
+              <Navbar />
+            </BrowserRouter>
+          </ThemeProvider>
+        </IntlGlobalProvider>
       </IntlProvider>
     </Provider>
   );
