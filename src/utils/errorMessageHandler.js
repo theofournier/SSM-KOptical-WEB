@@ -15,7 +15,7 @@ export default function errorMessageHandler(err, from) {
       status: '500',
     };
   } else {
-    error = { message: err.response.data.error, status: err.response.status };
+    error = { message: err.response.data.message, status: err.response.status };
   }
   console.log(error);
   return error;

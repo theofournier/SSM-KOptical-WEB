@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'querystring';
 
 import {
   LOGIN,
@@ -14,9 +15,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export const loginUser = (userData, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, LOGIN));
   try {
-    const res = await axios.post(`${apiUrl}/userlogin`, userData);
+    const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
     const { user } = res.data;
-    console.log(user);
     localStorage.setItem('currentUser', JSON.stringify(user));
     dispatch(setCurrentUser(user));
 
@@ -25,10 +25,11 @@ export const loginUser = (userData, callbackSuccess) => async(dispatch) => {
   } catch (err) {
     const error = errorMessageHandler(err, LOGIN);
     dispatch(setError(true, error.status, error.message, LOGIN));
-    dispatch(setAlert(err.response.statusText, 'error'));
+    dispatch(setAlert(error.message, 'error'));
   }
   dispatch(setLoading(false, LOGIN));
 };
+
 
 // Set logged in user
 export const setCurrentUser = (currentUser) => {
