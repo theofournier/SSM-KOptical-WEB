@@ -1,4 +1,5 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { amber } from '@material-ui/core/colors';
 
 export default responsiveFontSizes(createMuiTheme({
   palette: {
@@ -35,6 +36,10 @@ export default responsiveFontSizes(createMuiTheme({
     button: {
       accept: '#81C784',
       delete: '#790000',
+    },
+    snackbar: {
+      info: '#347ac9',
+      warning: amber[700],
     },
   },
   typography: {
