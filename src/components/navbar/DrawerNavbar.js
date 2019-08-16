@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Drawer, List, Divider, ListSubheader, Typography, Hidden,
+  Drawer, List, Divider, ListSubheader, Hidden,
 } from '@material-ui/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ListOutlined from '@material-ui/icons/ListOutlined';
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DrawerNavbar = ({
-  open, onClose, location: { pathname }, intl: { formatMessage },
+  open, onClose, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
 }) => {
   const classes = useStyles();
 
@@ -171,10 +173,26 @@ const DrawerNavbar = ({
           <img src={logo} alt="Logo" height={43} width={100} />
         </Link>
         <Divider variant='middle' />
-        {drawerItemsNoAuth}
+        {isAuthenticated
+          ? drawerItemsAuth
+          : drawerItemsNoAuth}
       </List>
     </Drawer>
   );
 };
 
-export default withRouter(injectIntl(DrawerNavbar));
+DrawerNavbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(
+  mapStateToProps,
+)(withRouter(injectIntl(DrawerNavbar)));

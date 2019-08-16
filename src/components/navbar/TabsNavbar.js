@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import {
   Hidden, IconButton, Grid,
@@ -7,6 +9,7 @@ import {
 import { injectIntl, FormattedMessage } from 'react-intl';
 import FaceOutlined from '@material-ui/icons/FaceOutlined';
 import MailOutlined from '@material-ui/icons/MailOutlined';
+
 import ButtonNavbar from './ButtonNavbar';
 import MyDefaultButton from '../common/MyDefaultButton';
 
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TabsNavbar = ({
-  location: { pathname }, intl: { formatMessage },
+  location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
 }) => {
   const classes = useStyles();
 
@@ -99,9 +102,23 @@ const TabsNavbar = ({
 
   return (
     <>
-      {tabsNoAuth}
+      {isAuthenticated
+        ? tabsAuth
+        : tabsNoAuth}
     </>
   );
 };
 
-export default withRouter(injectIntl(TabsNavbar));
+TabsNavbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(
+  mapStateToProps,
+)(withRouter(injectIntl(TabsNavbar)));
