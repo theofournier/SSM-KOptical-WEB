@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
 
-import { Typography, CssBaseline } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import Axios from 'axios';
 import Alert from './components/common/Alert';
 
@@ -14,7 +14,9 @@ import IntlGlobalProvider from './translations/IntlGlobalProvider';
 import englishTranslation from './translations/en.json';
 import frenchTranslation from './translations/fr.json';
 import Navbar from './components/navbar/Navbar';
-import setAuthToken from './utils/setAuthToken';
+
+import { setCurrentUser } from './actions/authActions';
+import { getLocalStorage, keyCurrentUser } from './utils/localStorages';
 
 const translations = {
   en: englishTranslation,
@@ -33,6 +35,13 @@ Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 const App = () => {
   const [language, setLanguage] = useState(userLanguage);
   const [translation, setTranslation] = useState(translations[userLanguage]);
+
+  useEffect(() => {
+    const currentUser = getLocalStorage(keyCurrentUser);
+    if (currentUser) {
+      store.dispatch(setCurrentUser(JSON.parse(currentUser)));
+    }
+  }, []);
 
   const changeLanguage = () => {
     if (language === 'en') {

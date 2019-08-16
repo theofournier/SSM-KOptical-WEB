@@ -9,6 +9,7 @@ import {
 } from './types';
 import errorMessageHandler from '../utils/errorMessageHandler';
 import { setAlert } from './alertAction';
+import { setLocalStorage, keyCurrentUser, removeLocalStorage } from '../utils/localStorages';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -17,7 +18,7 @@ export const loginUser = (userData, callbackSuccess) => async(dispatch) => {
   try {
     const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
     const { user } = res.data;
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    setLocalStorage(keyCurrentUser, JSON.stringify(user));
     dispatch(setCurrentUser(user));
 
     if (callbackSuccess) { callbackSuccess(); }
@@ -41,7 +42,7 @@ export const setCurrentUser = (currentUser) => {
 
 // Log user out
 export const logoutUser = () => (dispatch) => {
-  localStorage.removeItem('currentUser');
+  removeLocalStorage(keyCurrentUser);
   dispatch(setCurrentUser({}));
 };
 
