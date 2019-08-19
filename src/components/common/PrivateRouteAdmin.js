@@ -4,22 +4,39 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { typeCodeSA, typeCodeA } from '../../utils/config';
 
-const PrivateRouteAdmin = ({ component: Component, auth, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (auth.isAuthenticated && [typeCodeSA, typeCodeA].includes(auth.user.type.typeCode) ? (
-      <Component {...props} />
-    ) : (
-        <Redirect
+const PrivateRouteAdmin = ({ component: Component, auth, ...rest }) => {
+  if (auth.isAuthenticated && [typeCodeSA, typeCodeA].includes(auth.user.type.typeCode)) {
+    return (
+      <Route
+        {...rest}
+        render={(props) => <Component {...props} />}
+      />
+    );
+  }
+  if (auth.isAuthenticated) {
+    return (
+      <Route
+        {...rest}
+        render={(props) => <Redirect
           to={{
-            pathname: '/login',
-            state: { from: props.location, fromAdmin: true },
+            pathname: '/',
           }}
-        />
-    ))
-    }
-  />
-);
+        />}
+      />
+    );
+  }
+  return (
+    <Route
+      {...rest}
+      render={(props) => <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: props.location },
+        }}
+      />}
+    />
+  );
+};
 
 PrivateRouteAdmin.propTypes = {
   auth: PropTypes.object.isRequired,

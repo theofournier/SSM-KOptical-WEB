@@ -23,6 +23,15 @@
   "drawer.login": "Log In",
   "landing.title": "CRM",
   "landing.login": "Log In to use it",
+  "login.title": "Log In",
+  "login.email": "Email",
+  "login.password": "Password",
+  "login.rememberMe": "Remember Me",
+  "login.login": "Log In",
+  "login.forgotPassword": "Forgot Password ?",
+  "login.error.email.required": "Email is required",
+  "login.error.email.invalid": "Email is invalid",
+  "login.error.password.required": "Password is required",
   "api.error.500": "Something went wrong. Retry later.",
-  "api.LOGIN.error.404": "Email or password incorrect"
+  "api.LOGIN.error.401": "Email or password incorrect"
 }

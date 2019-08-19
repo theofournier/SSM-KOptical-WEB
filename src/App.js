@@ -40,7 +40,7 @@ const App = () => {
   useEffect(() => {
     const currentUser = getLocalStorage(keyCurrentUser);
     if (currentUser) {
-      store.dispatch(setCurrentUser(JSON.parse(currentUser)));
+      store.dispatch(setCurrentUser(currentUser));
     }
   }, []);
 

@@ -1,13 +1,15 @@
 const localStorageBase = 'SSM_KOPTICAL_WEB';
 
 export const keyCurrentUser = 'CURRENT_USER';
+export const keyRememberMe = 'REMEMBER_ME';
 
 export function setLocalStorage(key, value) {
   localStorage.setItem(`${localStorageBase}.${key}`, value);
 }
 
 export function getLocalStorage(key) {
-  return localStorage.getItem(`${localStorageBase}.${key}`);
+  const item = localStorage.getItem(`${localStorageBase}.${key}`);
+  return item ? JSON.parse(item) : false;
 }
 
 export function removeLocalStorage(key) {

@@ -9,19 +9,21 @@ import {
 } from './types';
 import errorMessageHandler from '../utils/errorMessageHandler';
 import { setAlert } from './alertAction';
-import { setLocalStorage, keyCurrentUser, removeLocalStorage } from '../utils/localStorages';
+import {
+  setLocalStorage, keyCurrentUser, removeLocalStorage,
+} from '../utils/localStorages';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const loginUser = (userData, callbackSuccess) => async(dispatch) => {
+export const loginUser = (userData, rememberMe) => async(dispatch) => {
   dispatch(setLoading(true, LOGIN));
   try {
     const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
     const { user } = res.data;
-    setLocalStorage(keyCurrentUser, JSON.stringify(user));
+    if (rememberMe) {
+      setLocalStorage(keyCurrentUser, JSON.stringify(user));
+    }
     dispatch(setCurrentUser(user));
-
-    if (callbackSuccess) { callbackSuccess(); }
     dispatch(setError(false, '', '', LOGIN));
   } catch (err) {
     const error = errorMessageHandler(err, LOGIN);
