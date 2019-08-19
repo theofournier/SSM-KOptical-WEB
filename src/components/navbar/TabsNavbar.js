@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TabsNavbar = ({
-  location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
+  onLogout, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
 }) => {
   const classes = useStyles();
 
@@ -113,6 +113,7 @@ TabsNavbar.propTypes = {
   auth: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired,
+  onLogout: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

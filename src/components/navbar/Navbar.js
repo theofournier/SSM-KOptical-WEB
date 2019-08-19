@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/styles';
 import {
   AppBar, Toolbar, Hidden, IconButton, Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { logoutUser } from '../../actions/authActions';
+
 import logo from '../../images/logo.png';
 import DrawerNavbar from './DrawerNavbar';
 import TabsNavbar from './TabsNavbar';
+import DialogConfirmation from '../common/DialogConfirmation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,15 +57,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ logoutUser, intl: { formatMessage } }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+  const toggleDrawer = (open) => (e) => {
+    if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
     }
-    setOpen(open);
+    setDrawerOpen(open);
   };
 
   return (
@@ -88,15 +94,37 @@ const Navbar = () => {
             </Typography>
           </Link>
           <div className={classes.tabsContainer}>
-            <TabsNavbar />
+            <TabsNavbar
+              onLogout={() => setLogoutDialogOpen(true)} />
           </div>
         </Toolbar>
       </AppBar>
       <DrawerNavbar
-        open={open}
-        onClose={toggleDrawer(false)} />
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        onLogout={() => setLogoutDialogOpen(true)} />
+      <DialogConfirmation
+        handleCancel={() => setLogoutDialogOpen(false)}
+        handleConfirm={() => { logoutUser(); setLogoutDialogOpen(false); }}
+        dialogOpen={logoutDialogOpen}
+        title={formatMessage({ id: 'drawer.dialog.logout.title' })}
+        textContent={formatMessage({ id: 'drawer.dialog.logout.text' })}
+      />
     </div >
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser },
+)(injectIntl(Navbar));

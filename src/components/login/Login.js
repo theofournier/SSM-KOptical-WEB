@@ -179,6 +179,7 @@ const Login = ({
             control={<Checkbox value="remember" color="primary" />}
             label={formatMessage({ id: 'login.rememberMe' })}
             value={rememberMe}
+            checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
           />
           {auth.errors[LOGIN] && auth.errors[LOGIN].hasFailed ? (

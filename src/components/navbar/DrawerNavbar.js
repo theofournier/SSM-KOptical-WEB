@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DrawerNavbar = ({
-  open, onClose, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
+  open, onClose, onLogout, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
 }) => {
   const classes = useStyles();
 
@@ -72,7 +72,7 @@ const DrawerNavbar = ({
           <ListItemDrawer
             label={formatMessage({ id: 'drawer.logout' })}
             Icon={<PowerSettingsNewOutlined />}
-            onClick={onClose} />
+            onClick={(e) => { onClose(e); onLogout(); }} />
         </List>
         <Divider variant='middle' />
       </Hidden>
@@ -187,6 +187,7 @@ DrawerNavbar.propTypes = {
   intl: PropTypes.object.isRequired,
   open: PropTypes.bool,
   onClose: PropTypes.func,
+  onLogout: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
