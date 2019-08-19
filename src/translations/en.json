@@ -21,6 +21,8 @@
   "drawer.account": "Account",
   "drawer.logout": "Log Out",
   "drawer.login": "Log In",
+  "landing.title": "CRM",
+  "landing.login": "Log In to use it",
   "api.error.500": "Something went wrong. Retry later.",
   "api.LOGIN.error.404": "Email or password incorrect"
 }
