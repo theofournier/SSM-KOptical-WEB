@@ -17,6 +17,7 @@ import Navbar from './components/navbar/Navbar';
 
 import { setCurrentUser } from './actions/authActions';
 import { getLocalStorage, keyCurrentUser } from './utils/localStorages';
+import Routes from './routes';
 
 const translations = {
   en: englishTranslation,
@@ -61,10 +62,11 @@ const App = () => {
       >
         <IntlGlobalProvider>
           <ThemeProvider theme={theme}>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
               <CssBaseline />
               <Alert />
               <Navbar />
+              <Routes />
             </BrowserRouter>
           </ThemeProvider>
         </IntlGlobalProvider>
