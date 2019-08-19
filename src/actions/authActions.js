@@ -21,7 +21,7 @@ export const loginUser = (userData, rememberMe) => async(dispatch) => {
     const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
     const { user } = res.data;
     if (rememberMe) {
-      setLocalStorage(keyCurrentUser, JSON.stringify(user));
+      setLocalStorage(keyCurrentUser, user);
     }
     dispatch(setCurrentUser(user));
     dispatch(setError(false, '', '', LOGIN));
