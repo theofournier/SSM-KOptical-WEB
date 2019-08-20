@@ -99,10 +99,12 @@ const Navbar = ({ logoutUser, intl: { formatMessage } }) => {
           </div>
         </Toolbar>
       </AppBar>
-      <DrawerNavbar
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}
-        onLogout={() => setLogoutDialogOpen(true)} />
+      <Hidden mdUp>
+        <DrawerNavbar
+          open={drawerOpen}
+          onClose={toggleDrawer(false)}
+          onLogout={() => setLogoutDialogOpen(true)} />
+      </Hidden>
       <DialogConfirmation
         handleCancel={() => setLogoutDialogOpen(false)}
         handleConfirm={() => { logoutUser(); setLogoutDialogOpen(false); }}

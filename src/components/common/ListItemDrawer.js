@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ListItemDrawer = ({
-  selected, to, label, Icon, onClick,
+  selected, to, label, secondaryLabel, Icon, onClick,
 }) => {
   const classes = useStyles();
 
@@ -39,6 +39,7 @@ const ListItemDrawer = ({
       </ListItemIcon>
       <ListItemText
         primary={label}
+        secondary={secondaryLabel}
         classes={
           selected
             ? { primary: classes.itemTextSelected }
@@ -53,6 +54,7 @@ ListItemDrawer.propTypes = {
   selected: PropTypes.bool,
   to: PropTypes.string,
   label: PropTypes.string,
+  secondaryLabel: PropTypes.string,
   onClick: PropTypes.func,
 };
 

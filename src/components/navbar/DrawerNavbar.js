@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DrawerNavbar = ({
-  open, onClose, onLogout, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated },
+  open, onClose, onLogout, location: { pathname }, intl: { formatMessage }, auth: { isAuthenticated, currentUser },
 }) => {
   const classes = useStyles();
 
@@ -64,7 +64,8 @@ const DrawerNavbar = ({
       <Hidden smUp>
         <List>
           <ListItemDrawer
-            label={formatMessage({ id: 'drawer.account' })}
+            label={`${currentUser.firstName} ${currentUser.lastName}`}
+            secondaryLabel={`${currentUser.email}`}
             selected={pathname === '/account'}
             to='/account'
             Icon={<FaceOutlined />}
@@ -138,7 +139,7 @@ const DrawerNavbar = ({
           Icon={<TrendingUpOutlined />}
           onClick={onClose} />
         <ListItemDrawer
-          label={formatMessage({ id: 'drawer.sendmessage' })}
+          label={formatMessage({ id: 'drawer.sendMessage' })}
           selected={pathname === '/sendmessage'}
           to='/sendmessage'
           Icon={<MessageOutlined />}

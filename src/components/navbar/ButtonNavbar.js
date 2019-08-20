@@ -27,19 +27,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ButtonNavbar = ({
-  label, selected, to,
+  label, selected, to, onClick,
 }) => {
   const classes = useStyles();
 
   return (
-    <>
-      <Button
-        className={clsx(classes.default, selected && classes.selected)}
-        to={to}
-        component={to ? Link : null}>
-        {label}
-      </Button>
-    </>
+    <Button
+      className={clsx(classes.default, selected && classes.selected)}
+      to={to}
+      component={to && Link}
+      onClick={onClick}>
+      {label}
+    </Button>
   );
 };
 
@@ -47,6 +46,7 @@ ButtonNavbar.propTypes = {
   label: PropTypes.string,
   selected: PropTypes.bool,
   to: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default ButtonNavbar;
