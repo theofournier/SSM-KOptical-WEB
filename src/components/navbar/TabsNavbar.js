@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Hidden, IconButton, Grid, MenuList, MenuItem, ListItemIcon, Divider, ListItemText,
+  Hidden, IconButton, Grid, MenuList, Divider,
 } from '@material-ui/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
@@ -49,9 +49,10 @@ const TabsNavbar = ({
 
   function handleMenuOpen(e) {
     setAnchorEl(e.currentTarget);
+    e.preventDefault();
   }
 
-  function handleMenuClose() {
+  function handleMenuClose(e) {
     setAnchorEl(null);
   }
 
