@@ -27,9 +27,6 @@ const Landing = () => {
     <div className={classes.root}>
       <div className={classes.titleContainer}>
         <img src={logo} alt="Logo" />
-        <Typography variant='h1' color="primary">
-          <FormattedMessage id='landing.title' />
-        </Typography>
       </div>
       <div className={classes.buttonContainer}>
         <MyDefaultButton to='/login' component={Link} variant='default2'>
