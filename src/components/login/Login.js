@@ -4,9 +4,11 @@ import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import {
-  makeStyles, Container, Paper, Avatar, Typography, TextField, FormControlLabel, Checkbox, Link,
+  makeStyles, Container, Paper, Avatar, Typography, TextField, FormControlLabel, Checkbox, Link, InputAdornment, IconButton,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { isEmpty, isEmail } from '../../utils/validators';
 import { loginUser, setError } from '../../actions/authActions';
 import MyDefaultButton from '../common/MyDefaultButton';
@@ -51,6 +53,7 @@ const Login = ({
     password: '',
   });
   const [rememberMe, setRememberMe] = useState(getLocalStorage(keyRememberMe));
+  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState({
     error: false,
     message: '',
@@ -120,7 +123,7 @@ const Login = ({
         loginId: loginData.email.replace(/ /g, ''),
         password: loginData.password,
       },
-        rememberMe);
+      rememberMe);
     }
   };
 
@@ -171,7 +174,7 @@ const Login = ({
             fullWidth
             name="password"
             label={formatMessage({ id: 'login.password' })}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
             value={loginData.password}
@@ -179,6 +182,15 @@ const Login = ({
             error={passwordError.error}
             helperText={passwordError.message}
             onKeyPress={keyPress}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
