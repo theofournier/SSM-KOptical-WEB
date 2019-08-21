@@ -4,7 +4,7 @@ import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import {
-  makeStyles, Container, Paper, Avatar, Typography, TextField, FormControlLabel, Checkbox, Link, InputAdornment, IconButton,
+  makeStyles, Container, Paper, Avatar, Typography, TextField, FormControlLabel, Checkbox, Link, InputAdornment, IconButton, Divider,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Visibility from '@material-ui/icons/Visibility';
@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     width: '100%',
     margin: theme.spacing(2, 0, 2),
+  },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -78,13 +82,13 @@ const Login = ({
     if (isEmpty(email)) {
       setEmailError({
         error: true,
-        message: formatMessage({ id: 'login.error.email.required' }),
+        message: formatMessage({ id: 'error.email.required' }),
       });
       return false;
     } if (!isEmail(email)) {
       setEmailError({
         error: true,
-        message: formatMessage({ id: 'login.error.email.invalid' }),
+        message: formatMessage({ id: 'error.email.invalid' }),
       });
       return false;
     }
@@ -99,7 +103,7 @@ const Login = ({
     if (isEmpty(loginData.password)) {
       setPasswordError({
         error: true,
-        message: formatMessage({ id: 'login.error.password.required' }),
+        message: formatMessage({ id: 'error.password.required' }),
       });
       return false;
     }
@@ -145,12 +149,15 @@ const Login = ({
   return (
     <Container maxWidth='xs'>
       <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon color='primary' />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id='login.title' />
-        </Typography>
+        <div className={classes.titleContainer}>
+          <Typography component="h1" variant="h5">
+            <FormattedMessage id='login.title' />
+          </Typography>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon color='primary' />
+          </Avatar>
+        </div>
+        <Divider style={{ width: '100%' }} />
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"

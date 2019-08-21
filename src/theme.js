@@ -19,7 +19,7 @@ export default responsiveFontSizes(createMuiTheme({
       dark: '#490000',
     },
     success: {
-      main: '#81C784',
+      main: '#5cb85c',
     },
     text: {
       primary: '#424242',
