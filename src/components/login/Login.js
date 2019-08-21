@@ -67,13 +67,18 @@ const Login = ({
   };
 
   const emailValidation = () => {
-    if (isEmpty(loginData.email)) {
+    const email = loginData.email.replace(/ /g, '');
+    setLoginData({
+      ...loginData,
+      email,
+    });
+    if (isEmpty(email)) {
       setEmailError({
         error: true,
         message: formatMessage({ id: 'login.error.email.required' }),
       });
       return false;
-    } if (!isEmail(loginData.email)) {
+    } if (!isEmail(email)) {
       setEmailError({
         error: true,
         message: formatMessage({ id: 'login.error.email.invalid' }),
@@ -112,10 +117,10 @@ const Login = ({
     if (inputsValidation()) {
       setLocalStorage(keyRememberMe, rememberMe);
       loginUser({
-        loginId: loginData.email,
+        loginId: loginData.email.replace(/ /g, ''),
         password: loginData.password,
       },
-      rememberMe);
+        rememberMe);
     }
   };
 
