@@ -9,6 +9,7 @@ import {
   AUTH_ERROR,
   FORGOT_PASSWORD,
   SEND_OTP,
+  CHANGE_PASSWORD,
 } from './types';
 import errorMessageHandler from '../utils/errorMessageHandler';
 import { setAlert } from './alertAction';
@@ -17,8 +18,7 @@ import {
 } from '../utils/localStorages';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-
-export const loginUser = (userData, rememberMe) => async (dispatch) => {
+export const loginUser = (data, rememberMe) => async(dispatch) => {
   dispatch(setLoading(true, LOGIN));
   try {
     const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
@@ -51,7 +51,7 @@ export const logoutUser = () => (dispatch) => {
   dispatch(setCurrentUser({}));
 };
 
-export const forgotPassword = (userData, callbackSuccess) => async (dispatch) => {
+export const forgotPassword = (data, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, FORGOT_PASSWORD));
   try {
     const res = await axios.post(`${apiUrl}/forgotpassword`, qs.stringify(userData));
@@ -68,7 +68,7 @@ export const forgotPassword = (userData, callbackSuccess) => async (dispatch) =>
   dispatch(setLoading(false, FORGOT_PASSWORD));
 };
 
-export const sendOtp = (userData, callbackSuccess) => async (dispatch) => {
+export const sendOtp = (data, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, SEND_OTP));
   try {
     await axios.post(`${apiUrl}/newandsendotp`, qs.stringify(userData));
@@ -83,6 +83,24 @@ export const sendOtp = (userData, callbackSuccess) => async (dispatch) => {
     dispatch(setAlert(error.message, 'error'));
   }
   dispatch(setLoading(false, SEND_OTP));
+};
+
+export const changePassword = (data, callbackSuccess) => async(dispatch) => {
+  dispatch(setLoading(true, CHANGE_PASSWORD));
+  try {
+    console.log('axios');
+    await axios.post('/api/updatepassword', qs.stringify(data));
+    if (callbackSuccess) {
+      callbackSuccess();
+    }
+    dispatch(setAlert(intl.formatMessage({ id: 'settings.changePassword.success' }), 'success'));
+    dispatch(setError(false, '', '', CHANGE_PASSWORD));
+  } catch (err) {
+    const error = errorMessageHandler(err, CHANGE_PASSWORD);
+    dispatch(setError(true, error.status, error.message, CHANGE_PASSWORD));
+    dispatch(setAlert(error.message, 'error'));
+  }
+  dispatch(setLoading(false, CHANGE_PASSWORD));
 };
 
 

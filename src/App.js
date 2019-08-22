@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
 
 import { CssBaseline } from '@material-ui/core';
-import Axios from 'axios';
 import Alert from './components/common/Alert';
 
 import store from './store';
@@ -28,10 +27,6 @@ const userLanguage = (navigator.language || navigator.userLanguage).includes(
 )
   ? 'fr'
   : 'en';
-
-// Axios header
-Axios.defaults.headers.Authorization = process.env.REACT_APP_API_KEY;
-Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const App = () => {
   const [language, setLanguage] = useState(userLanguage);
