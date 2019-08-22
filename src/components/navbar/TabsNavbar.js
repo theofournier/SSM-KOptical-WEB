@@ -17,6 +17,7 @@ import TrendingUpOutlined from '@material-ui/icons/TrendingUpOutlined';
 import MessageOutlined from '@material-ui/icons/MessageOutlined';
 import ListOutlined from '@material-ui/icons/ListOutlined';
 import MapOutlined from '@material-ui/icons/MapOutlined';
+import SettingsOutlined from '@material-ui/icons/SettingsOutlined';
 
 import ButtonNavbar from './ButtonNavbar';
 import MyDefaultButton from '../common/MyDefaultButton';
@@ -131,6 +132,13 @@ const TabsNavbar = ({
         Icon={<FaceOutlined />}
         primaryLabel={`${currentUser.firstName} ${currentUser.lastName}`}
         secondaryLabel={`${currentUser.email}`} />
+      <Divider />
+      <MenuItemNavbar
+        to='/settings'
+        onClick={handleMenuClose}
+        selected={pathname === '/settings'}
+        Icon={<SettingsOutlined />}
+        primaryLabel={formatMessage({ id: 'navbar.settings' })} />
       <Divider />
       <MenuItemNavbar
         onClick={(e) => { handleMenuClose(); onLogout(); }}

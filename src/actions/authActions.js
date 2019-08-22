@@ -14,14 +14,13 @@ import {
 import errorMessageHandler from '../utils/errorMessageHandler';
 import { setAlert } from './alertAction';
 import {
-  setLocalStorage, keyCurrentUser, removeLocalStorage,
+  setLocalStorage, keyCurrentUser, removeLocalStorage, getLocalStorage, keyRememberMe,
 } from '../utils/localStorages';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 export const loginUser = (data, rememberMe) => async(dispatch) => {
   dispatch(setLoading(true, LOGIN));
   try {
-    const res = await axios.post(`${apiUrl}/userlogin`, qs.stringify(userData));
+    const res = await axios.post('/api/userlogin', data);
     const { user } = res.data;
     if (rememberMe) {
       setLocalStorage(keyCurrentUser, user);
@@ -39,6 +38,9 @@ export const loginUser = (data, rememberMe) => async(dispatch) => {
 
 // Set logged in user
 export const setCurrentUser = (currentUser) => {
+  if (getLocalStorage(keyRememberMe)) {
+    setLocalStorage(keyCurrentUser, currentUser);
+  }
   return {
     type: SET_CURRENT_USER,
     payload: currentUser,
@@ -54,7 +56,7 @@ export const logoutUser = () => (dispatch) => {
 export const forgotPassword = (data, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, FORGOT_PASSWORD));
   try {
-    const res = await axios.post(`${apiUrl}/forgotpassword`, qs.stringify(userData));
+    const res = await axios.post('/api/forgotpassword', qs.stringify(data));
     const { user } = res.data;
     if (callbackSuccess) {
       callbackSuccess(user);
@@ -71,7 +73,7 @@ export const forgotPassword = (data, callbackSuccess) => async(dispatch) => {
 export const sendOtp = (data, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, SEND_OTP));
   try {
-    await axios.post(`${apiUrl}/newandsendotp`, qs.stringify(userData));
+    await axios.post('/api/newandsendotp', qs.stringify(data));
     if (callbackSuccess) {
       callbackSuccess();
     }
@@ -88,7 +90,6 @@ export const sendOtp = (data, callbackSuccess) => async(dispatch) => {
 export const changePassword = (data, callbackSuccess) => async(dispatch) => {
   dispatch(setLoading(true, CHANGE_PASSWORD));
   try {
-    console.log('axios');
     await axios.post('/api/updatepassword', qs.stringify(data));
     if (callbackSuccess) {
       callbackSuccess();

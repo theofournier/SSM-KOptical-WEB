@@ -53,7 +53,7 @@ const ForgotPassword = ({
 }) => {
   const classes = useStyles();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(auth.currentUser.login ? auth.currentUser.login.loginId : '');
   const [contact, setContact] = useState('');
   const [emailError, setEmailError] = useState({
     error: false,
@@ -101,7 +101,7 @@ const ForgotPassword = ({
       forgotPassword({
         loginId: email.replace(/ /g, ''),
       },
-      (user) => setContact(user.email));
+        (user) => setContact(user.email));
     }
   };
   const keyPress = (e) => {
@@ -116,7 +116,7 @@ const ForgotPassword = ({
       method,
       contact,
     },
-    () => setToLogin(true));
+      () => setToLogin(true));
   };
 
   const contactPaper = (

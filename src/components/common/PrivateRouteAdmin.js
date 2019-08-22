@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { typeCodeSA, typeCodeA } from '../../utils/config';
 
 const PrivateRouteAdmin = ({ component: Component, auth, ...rest }) => {
-  if (auth.isAuthenticated && [typeCodeSA, typeCodeA].includes(auth.user.type.typeCode)) {
+  if (auth.isAuthenticated && [typeCodeSA, typeCodeA].includes(auth.currentUser.type.typeCode)) {
     return (
       <Route
         {...rest}

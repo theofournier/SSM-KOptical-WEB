@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import MyDefaultButton from '../common/MyDefaultButton';
 import logo from '../../images/logo_name.png';
