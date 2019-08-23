@@ -74,7 +74,7 @@ const Login = ({
   };
 
   const emailValidation = () => {
-    const email = loginData.email.replace(/ /g, '');
+    const email = loginData.email.trim();
     setLoginData({
       ...loginData,
       email,
@@ -124,7 +124,7 @@ const Login = ({
     if (inputsValidation()) {
       setLocalStorage(keyRememberMe, rememberMe);
       loginUser({
-        loginId: loginData.email.replace(/ /g, ''),
+        loginId: loginData.email.trim(),
         password: loginData.password,
       },
       rememberMe);

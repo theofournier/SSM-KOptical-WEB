@@ -69,7 +69,7 @@ const ForgotPassword = ({
   };
 
   const emailValidation = () => {
-    const emailValid = email.replace(/ /g, '');
+    const emailValid = email.trim();
     setEmail(emailValid);
     if (isEmpty(emailValid)) {
       setEmailError({
@@ -99,9 +99,9 @@ const ForgotPassword = ({
   const onSubmitForgotPassword = () => {
     if (inputsValidation()) {
       forgotPassword({
-        loginId: email.replace(/ /g, ''),
+        loginId: email.trim(),
       },
-        (user) => setContact(user.email));
+      (user) => setContact(user.email));
     }
   };
   const keyPress = (e) => {
@@ -112,11 +112,11 @@ const ForgotPassword = ({
 
   const onSubmitSendOtp = (method, contact) => {
     sendOtp({
-      loginId: email.replace(/ /g, ''),
+      loginId: email.trim(),
       method,
       contact,
     },
-      () => setToLogin(true));
+    () => setToLogin(true));
   };
 
   const contactPaper = (
