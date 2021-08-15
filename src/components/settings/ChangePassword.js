@@ -5,7 +5,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import {
-  makeStyles, Typography, TextField, Link, InputAdornment, IconButton,
+  makeStyles,
+  Typography,
+  TextField,
+  Link,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -26,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChangePassword = ({
-  intl: { formatMessage }, changePassword, setError, auth,
+  intl: { formatMessage },
+  changePassword,
+  setError,
+  auth,
 }) => {
   const classes = useStyles();
 
@@ -118,17 +126,19 @@ const ChangePassword = ({
 
   const onSubmit = () => {
     if (inputsValidation()) {
-      changePassword({
-        loginId: auth.currentUser.login.loginId,
-        oldPassword: data.currentPassword,
-        newPassword: data.newPassword,
-        updatePassword: datetimeFormattingDB(moment()),
-      },
+      changePassword(
+        {
+          loginId: auth.currentUser.login.loginId,
+          oldPassword: data.currentPassword,
+          newPassword: data.newPassword,
+          updatePassword: datetimeFormattingDB(moment()),
+        },
         () => setData({
-          currentPassword: '',
-          newPassword: '',
-          confirmPassword: '',
-        }));
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: '',
+          }),
+      );
     }
   };
 
@@ -152,14 +162,27 @@ const ChangePassword = ({
         id="currentPassword"
         autoComplete="current-password"
         value={data.currentPassword}
-        onChange={(e) => { setCurrentPasswordError({ error: false, message: '' }); handleChange(e); }}
+        onChange={(e) => {
+          setCurrentPasswordError({ error: false, message: '' });
+          handleChange(e);
+        }}
         error={currentPasswordError.error}
         helperText={currentPasswordError.message}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={() => setShowPassword({ ...showPassword, currentPassword: !showPassword.currentPassword })}>
-                {showPassword.currentPassword ? <Visibility /> : <VisibilityOff />}
+              <IconButton
+                onClick={() => setShowPassword({
+                    ...showPassword,
+                    currentPassword: !showPassword.currentPassword,
+                  })
+                }
+              >
+                {showPassword.currentPassword ? (
+                  <Visibility />
+                ) : (
+                  <VisibilityOff />
+                )}
               </IconButton>
             </InputAdornment>
           ),
@@ -176,13 +199,22 @@ const ChangePassword = ({
         id="newPassword"
         autoComplete="current-password"
         value={data.newPassword}
-        onChange={(e) => { setNewPasswordError({ error: false, message: '' }); handleChange(e); }}
+        onChange={(e) => {
+          setNewPasswordError({ error: false, message: '' });
+          handleChange(e);
+        }}
         error={newPasswordError.error}
         helperText={newPasswordError.message}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={() => setShowPassword({ ...showPassword, newPassword: !showPassword.newPassword })}>
+              <IconButton
+                onClick={() => setShowPassword({
+                    ...showPassword,
+                    newPassword: !showPassword.newPassword,
+                  })
+                }
+              >
                 {showPassword.newPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             </InputAdornment>
@@ -200,40 +232,52 @@ const ChangePassword = ({
         id="confirmPassword"
         autoComplete="current-password"
         value={data.confirmPassword}
-        onChange={(e) => { setConfirmPasswordError({ error: false, message: '' }); handleChange(e); }}
+        onChange={(e) => {
+          setConfirmPasswordError({ error: false, message: '' });
+          handleChange(e);
+        }}
         error={confirmPasswordError.error}
         helperText={confirmPasswordError.message}
         onKeyPress={keyPress}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={() => setShowPassword({ ...showPassword, confirmPassword: !showPassword.confirmPassword })}>
-                {showPassword.confirmPassword ? <Visibility /> : <VisibilityOff />}
+              <IconButton
+                onClick={() => setShowPassword({
+                    ...showPassword,
+                    confirmPassword: !showPassword.confirmPassword,
+                  })
+                }
+              >
+                {showPassword.confirmPassword ? (
+                  <Visibility />
+                ) : (
+                  <VisibilityOff />
+                )}
               </IconButton>
             </InputAdornment>
           ),
         }}
       />
-      {auth.errors[CHANGE_PASSWORD] && auth.errors[CHANGE_PASSWORD].hasFailed ? (
-        <Typography color='error' variant="body1">
+      {auth.errors[CHANGE_PASSWORD]
+      && auth.errors[CHANGE_PASSWORD].hasFailed ? (
+        <Typography color="error" variant="body1">
           {auth.errors[CHANGE_PASSWORD].message}
         </Typography>
-      ) : null}
+        ) : null}
       <MyDefaultButton
         className={classes.submit}
         onClick={onSubmit}
         disabled={auth.loadings[CHANGE_PASSWORD]}
       >
-        {auth.loadings[CHANGE_PASSWORD]
-          ? <MyCircularProgress />
-          : <FormattedMessage id='settings.changePassword.savePassword' />
-        }
+        {auth.loadings[CHANGE_PASSWORD] ? (
+          <MyCircularProgress />
+        ) : (
+          <FormattedMessage id="settings.changePassword.savePassword" />
+        )}
       </MyDefaultButton>
-      <Link
-        component={RouterLink}
-        to='/forgotpassword'
-        variant="body2">
-        <FormattedMessage id='login.forgotPassword' />
+      <Link component={RouterLink} to="/forgotpassword" variant="body2">
+        <FormattedMessage id="login.forgotPassword" />
       </Link>
     </form>
   );
